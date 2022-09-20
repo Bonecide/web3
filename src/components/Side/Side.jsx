@@ -5,6 +5,8 @@ export default function Side() {
         <div style={{'display' : 'flex','gap' : '20px'}}>
             <Link to={'/'}>ETH</Link>
             <Link to={'/ton'}>TON</Link>
+            <Link to={'/sol'}>SOL</Link>
+            <Link to={'/switch'}>Switch</Link>
         </div>
     )
 }

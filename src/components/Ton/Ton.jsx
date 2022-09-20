@@ -89,7 +89,7 @@ export default function Ton() {
          } else if (TrueSession.state === 'ready') {
              
              setWallet (TrueSession.wallet)
-             setIsConnecting(false)
+             
             
             
           
@@ -108,6 +108,7 @@ export default function Ton() {
                     <div className={s.qr}>
                         <h1>Пожалуйста,просканируйте QR-код и подключите ваш кошелёк</h1>
                         <QRCode value={session.link} renderAs="canvas" />
+                        <input  defaultChecked={true}  type="checkbox" />
                     </div>
                 )}
                {isAuth && wallet && (
