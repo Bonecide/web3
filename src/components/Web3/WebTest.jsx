@@ -4,6 +4,7 @@ import ErrorMessage from "./ErrorMessage";
 import TxList from "./TxList";
 
 const startPayment = async ({ setError, setTxs, ether, addr }) => {
+ 
   try {
  
     if (!window.ethereum)
@@ -15,19 +16,23 @@ const startPayment = async ({ setError, setTxs, ether, addr }) => {
     ethers.utils.getAddress(addr);
     const tx = await signer.sendTransaction({
       to: addr,
-      value: ethers.utils.parseEther(ether)
-    });
-    console.log({ ether, addr });
-    console.log("tx", tx);
+      value: ethers.utils.parseEther(ether),
+      gasLimit: ethers.utils.hexlify(100000), // 100000
+      gasPrice: provider.getGasPrice() ,
+    })
+   
    
     setTxs([tx]);
-  } catch (err) {
+  } 
+  
+  catch (err) {
     setError(err.message);
     console.log('eeee')
   }
 };
 
 export default function WebTest() {
+ 
   const [error, setError] = useState();
   const [txs, setTxs] = useState([]);
 

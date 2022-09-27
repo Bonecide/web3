@@ -7,6 +7,7 @@ export default function Side() {
             <Link to={'/ton'}>TON</Link>
             <Link to={'/sol'}>SOL</Link>
             <Link to={'/switch'}>Switch</Link>
+            <Link to={'/usdt'}>Usdt</Link>
         </div>
     )
 }

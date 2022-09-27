@@ -71,15 +71,7 @@ export default function Ton() {
 
    if (isConnecting) {
         connector.awaitSessionReady(session.id,1 * 60 * 1000).then(res => {
-            
-       
         setTrueSession(res)
-        
-       
-       
-       
-      
-      
     })
     if(TrueSession) {
         setIsConnecting(false)
@@ -87,13 +79,8 @@ export default function Ton() {
          if (TrueSession.state === 'revoked' || TrueSession.state === 'expired') {
      
          } else if (TrueSession.state === 'ready') {
-             
              setWallet (TrueSession.wallet)
              
-            
-            
-          
-         
          } else {
              throw new Error('Impossible');
          

@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+###  Как поменять сеть в Metamask у пользователя
+Пример кода можете посмотреть здесь : https://github.com/Bonecide/web3/blob/master/src/components/SwitchNetwork/SwitchNetwork.jsx
+```
+Никакая библиотека здесь не требуется,всё делается на нативном уровне
+```
+### Создаём список сетей,которые хотим в будущем хотим подключить,все данные от сети можно найти в гугле
+```javascript 
+const networks = {
+  polygon: {
+    chainId: `0x${Number(137).toString(16)}`,
+    chainName: "Polygon Mainnet",
+    nativeCurrency: {
+      name: "MATIC",
+      symbol: "MATIC",
+      decimals: 18
+    },
+    rpcUrls: ["https://polygon-rpc.com/"],
+    blockExplorerUrls: ["https://polygonscan.com/"]
+  },
+  bsc: {
+    chainId: `0x${Number(56).toString(16)}`,
+    chainName: "Binance Smart Chain Mainnet",
+    nativeCurrency: {
+      name: "Binance Chain Native Token",
+      symbol: "BNB",
+      decimals: 18
+    },
+    rpcUrls: [
+      "https://bsc-dataseed1.binance.org",
+      "https://bsc-dataseed2.binance.org",
+      "https://bsc-dataseed3.binance.org",
+      "https://bsc-dataseed4.binance.org",
+      "https://bsc-dataseed1.defibit.io",
+      "https://bsc-dataseed2.defibit.io",
+      "https://bsc-dataseed3.defibit.io",
+      "https://bsc-dataseed4.defibit.io",
+      "https://bsc-dataseed1.ninicoin.io",
+      "https://bsc-dataseed2.ninicoin.io",
+      "https://bsc-dataseed3.ninicoin.io",
+      "https://bsc-dataseed4.ninicoin.io",
+      "wss://bsc-ws-node.nariox.org"
+    ],
+    blockExplorerUrls: ["https://bscscan.com"]
+  },
+  
+};
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+``` 
+### Создание функций изменения сети 
 
-## Available Scripts
+```javascript
+   const changeNetwork = async ({ networkName, setError }) => {
+  try {
+    if (!window.ethereum) throw new Error("No crypto wallet found"); //Проверяем наличие Metamask в браузере
+    await window.ethereum.request({
+      method: "wallet_addEthereumChain",
+      params: [
+        {
+          ...networks[networkName]
+        }
+      ]
+    });
+  } catch (err) {
+    setError(err.message);
+  }
+};
+const [error, setError] = useState();
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+const handleNetworkSwitch = async (networkName) => { //В networkName передаём ключ от сети,которые мы добавили вначале
+  setError();
+  await changeNetwork({ networkName, setError });
+};
+```
+### Как поставить сеть ETH обратно 
+Для переключения сети на ETH создадим отдельную функцию
+```javascript
+const setETH = () => {
+  window.ethereum.request({
+    method: "wallet_switchEthereumChain",
+    params: [{
+       chainId: "0x1"
+    }]
+ })
+}
+```

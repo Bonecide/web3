@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import ErrorMessage from './../Web3/ErrorMessage';
+import { useMetaMask } from "metamask-react";
 export default function SwitchNetwork() {
     
-
 const networks = {
   polygon: {
     chainId: `0x${Number(137).toString(16)}`,
@@ -39,9 +39,17 @@ const networks = {
       "wss://bsc-ws-node.nariox.org"
     ],
     blockExplorerUrls: ["https://bscscan.com"]
-  }
+  },
+  
 };
-
+const setETH = () => {
+  window.ethereum.request({
+    method: "wallet_switchEthereumChain",
+    params: [{
+       chainId: "0x1"
+    }]
+ })
+}
 const changeNetwork = async ({ networkName, setError }) => {
   try {
     if (!window.ethereum) throw new Error("No crypto wallet found");
@@ -105,6 +113,12 @@ return (
           className="mt-2 mb-2 bg-warning border-warning btn submit-button focus:ring focus:outline-none w-full"
         >
           Switch to BSC
+        </button>
+        <button
+          onClick={setETH}
+          className="mt-2 mb-2 bg-warning border-warning btn submit-button focus:ring focus:outline-none w-full"
+        >
+          Switch to ETH
         </button>
         <ErrorMessage message={error} />
       </div>

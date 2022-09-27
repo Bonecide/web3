@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import Side from './components/Side/Side';
 import Sol from './components/Sol/Sol';
 import SwitchNetwork from './components/SwitchNetwork/SwitchNetwork';
+import Usdt from './components/USDT/Usdt';
 function App() {
   return (
     // <div className='MAIN' >
@@ -21,6 +22,7 @@ function App() {
       <Route path='/ton' element ={<Ton/>}/>
       <Route path='/sol' element ={<Sol/>}/>
       <Route path='/switch' element={<SwitchNetwork/>}/>
+      <Route path='/usdt' element={<Usdt/>}/>
     </Routes>
     </>
 

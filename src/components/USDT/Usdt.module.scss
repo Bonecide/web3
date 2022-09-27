@@ -1,0 +1,52 @@
+.container {
+    background: #3D4451;
+    padding-top: 100px;
+    min-height: 100vh;
+  
+
+   .main {
+    display: flex;
+    flex-direction: column;
+    form {
+        display: flex;
+        justify-content: center;
+    }
+    .form {
+        padding: 30px;
+        background: white;
+        min-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        border-radius: 10px;
+        input {
+            width: 100%;
+            height: 40px;
+            border-radius: 0.5rem;
+            padding-left: 5px;
+            background: #3D4451;
+            color: white;
+        }
+        & ::placeholder {
+            color: #A1988B;
+        }
+        button {
+            border-radius: 0.5rem;
+            height: 3rem;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            background-color: #793EF9;
+            color: white;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            &:hover {
+                background: blue;
+                opacity: 0.7;
+            }
+        }
+    }
+   }
+}
